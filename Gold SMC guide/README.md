@@ -16,13 +16,14 @@ A trading guide for XAUUSD (Gold) using Smart Money Concepts (SMC) on TradingVie
 ## What is included
 
 - `SMC_Gold_Guide.html` — visual guide with chart concepts, trade setup rules, session timing, and install instructions
+- `XAU-USD SMC.txt` — Pine Script v5 code for the SMC indicator on TradingView
 - `README.md` — project summary and usage notes
 
 ## How to use
 
 1. Open `SMC_Gold_Guide.html` in a browser.
 2. Review the SMC concepts and trade setup rules.
-3. Use the guide alongside TradingView and Pine Script for XAUUSD H1.
+3. Copy the Pine Script code from `XAU-USD SMC.txt` and paste it into TradingView's Pine Editor for XAUUSD H1.
 
 ## Installation notes
 
@@ -42,5 +43,5 @@ To host the guide on GitHub Pages:
 
 ## Notes
 
-- This repo currently contains only the HTML guide file.
-- Add script files, screenshots, or additional documentation as needed.
+- This repo contains the HTML guide and Pine Script code for SMC trading on XAUUSD.
+- Add screenshots, backtests, or additional documentation as needed.
