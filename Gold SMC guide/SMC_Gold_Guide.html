@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>SMC Gold Strategy Guide</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,300&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet"/>
+<style>
+:root {
+  --gold:   #C9A84C;
+  --gold2:  #F0C866;
+  --gold3:  #7A5C1E;
+  --green:  #3DBA78;
+  --red:    #E05252;
+  --aqua:   #4ECDC4;
+  --purple: #9B7FD4;
+  --yellow: #F5D76E;
+  --bg:     #08080D;
+  --bg2:    #0F0F18;
+  --bg3:    #161622;
+  --border: rgba(201,168,76,0.18);
+  --text:   #D8D8E8;
+  --muted:  #6A6A90;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+  background:var(--bg);
+  color:var(--text);
+  font-family:'Crimson Pro',serif;
+  font-weight:300;
+  min-height:100vh;
+  overflow-x:hidden;
+}
+
+/* Background texture */
+body::after{
+  content:'';position:fixed;inset:0;
+  background:
+    radial-gradient(ellipse 80% 60% at 50% -10%, rgba(201,168,76,0.07) 0%, transparent 60%),
+    radial-gradient(ellipse 40% 40% at 90% 80%,  rgba(201,168,76,0.04) 0%, transparent 50%);
+  pointer-events:none;z-index:0;
+}
+
+/* ── HEADER ── */
+header{
+  position:relative;z-index:1;
+  padding:70px 60px 50px;
+  border-bottom:1px solid var(--border);
+  display:grid;
+  grid-template-columns:1fr auto;
+  align-items:end;
+  gap:40px;
+}
+.header-left{}
+.eyebrow{
+  font-family:'Space Mono',monospace;
+  font-size:10px;
+  letter-spacing:4px;
+  color:var(--gold);
+  text-transform:uppercase;
+  margin-bottom:18px;
+  opacity:.7;
+}
+h1{
+  font-family:'Cinzel',serif;
+  font-weight:900;
+  font-size:clamp(40px,7vw,90px);
+  line-height:.92;
+  letter-spacing:-1px;
+  color:var(--gold2);
+  text-shadow:0 0 80px rgba(201,168,76,0.3);
+}
+h1 span{
+  display:block;
+  font-size:.45em;
+  font-weight:400;
+  color:var(--muted);
+  letter-spacing:3px;
+  text-transform:uppercase;
+  margin-top:10px;
+}
+.header-right{
+  display:flex;flex-direction:column;gap:8px;align-items:flex-end;
+}
+.pill{
+  font-family:'Space Mono',monospace;
+  font-size:9px;
+  letter-spacing:2px;
+  padding:5px 14px;
+  border-radius:2px;
+  border:1px solid;
+  text-transform:uppercase;
+  white-space:nowrap;
+}
+.pill.gold  {border-color:var(--gold);  color:var(--gold2);}
+.pill.green {border-color:var(--green); color:var(--green);}
+.pill.aqua  {border-color:var(--aqua);  color:var(--aqua);}
+
+/* ── MAIN ── */
+main{position:relative;z-index:1;max-width:1000px;margin:0 auto;padding:60px 40px;}
+
+section{margin-bottom:64px;}
+
+h2{
+  font-family:'Cinzel',serif;
+  font-weight:700;
+  font-size:22px;
+  letter-spacing:3px;
+  text-transform:uppercase;
+  color:var(--gold);
+  margin-bottom:28px;
+  display:flex;align-items:center;gap:14px;
+}
+h2::after{content:'';flex:1;height:1px;background:var(--border);}
+
+/* ── CONCEPT CARDS ── */
+.concept-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+  gap:16px;
+}
+.concept-card{
+  background:var(--bg2);
+  border:1px solid var(--border);
+  border-radius:6px;
+  padding:22px 20px;
+  position:relative;
+  overflow:hidden;
+  transition:border-color .25s,transform .2s;
+}
+.concept-card:hover{
+  border-color:rgba(201,168,76,.4);
+  transform:translateY(-3px);
+}
+.concept-card .accent-bar{
+  position:absolute;top:0;left:0;right:0;height:3px;
+}
+.cc-icon{font-size:26px;margin-bottom:12px;display:block;}
+.cc-name{
+  font-family:'Cinzel',serif;
+  font-size:13px;
+  font-weight:700;
+  letter-spacing:2px;
+  text-transform:uppercase;
+  margin-bottom:8px;
+}
+.cc-desc{font-size:13px;line-height:1.7;color:var(--muted);}
+
+/* ── TRADE SETUP ── */
+.setup-container{display:grid;grid-template-columns:1fr 1fr;gap:20px;}
+.setup-box{
+  background:var(--bg2);
+  border:1px solid var(--border);
+  border-radius:6px;
+  overflow:hidden;
+}
+.setup-header{
+  padding:14px 20px;
+  font-family:'Cinzel',serif;
+  font-size:13px;
+  font-weight:700;
+  letter-spacing:2px;
+  text-transform:uppercase;
+  display:flex;align-items:center;gap:10px;
+}
+.setup-header.buy {background:rgba(61,186,120,.12);color:var(--green);}
+.setup-header.sell{background:rgba(224,82,82,.12); color:var(--red);}
+.dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;}
+.dot.buy {background:var(--green);}
+.dot.sell{background:var(--red);}
+
+.setup-steps{padding:16px 20px;list-style:none;}
+.setup-steps li{
+  font-size:13px;
+  line-height:1.7;
+  color:var(--text);
+  padding:7px 0;
+  border-bottom:1px solid rgba(255,255,255,.04);
+  display:flex;align-items:flex-start;gap:10px;
+  font-family:'Space Mono',monospace;
+  font-size:11px;
+}
+.setup-steps li:last-child{border-bottom:none;}
+.step-num{
+  font-family:'Cinzel',serif;
+  font-size:15px;
+  font-weight:700;
+  color:var(--gold3);
+  flex-shrink:0;
+  line-height:1.4;
+}
+
+/* ── CHART LEGEND ── */
+.legend-grid{display:flex;flex-direction:column;gap:10px;}
+.legend-row{
+  display:grid;
+  grid-template-columns:14px 140px 1fr;
+  align-items:center;
+  gap:14px;
+  background:var(--bg2);
+  border:1px solid var(--border);
+  border-radius:4px;
+  padding:12px 16px;
+}
+.legend-swatch{width:14px;height:14px;border-radius:2px;flex-shrink:0;}
+.legend-name{
+  font-family:'Space Mono',monospace;
+  font-size:10px;
+  letter-spacing:1px;
+  color:var(--gold2);
+}
+.legend-desc{font-size:13px;color:var(--muted);line-height:1.5;}
+
+/* ── KILL ZONES ── */
+.kz-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+.kz-card{
+  background:var(--bg2);
+  border:1px solid var(--border);
+  border-radius:6px;
+  padding:24px;
+  position:relative;overflow:hidden;
+}
+.kz-card::before{
+  content:'';position:absolute;
+  top:0;left:0;bottom:0;width:3px;
+}
+.kz-card.london::before{background:var(--aqua);}
+.kz-card.ny::before    {background:var(--purple);}
+.kz-time{
+  font-family:'Space Mono',monospace;
+  font-size:22px;
+  font-weight:700;
+  margin-bottom:6px;
+}
+.kz-card.london .kz-time{color:var(--aqua);}
+.kz-card.ny     .kz-time{color:var(--purple);}
+.kz-label{
+  font-family:'Cinzel',serif;
+  font-size:11px;
+  letter-spacing:2px;
+  text-transform:uppercase;
+  color:var(--muted);
+  margin-bottom:12px;
+}
+.kz-desc{font-size:13px;color:var(--muted);line-height:1.7;}
+
+/* ── INSTALL ── */
+.install-steps{display:flex;flex-direction:column;gap:12px;}
+.install-step{
+  display:flex;gap:20px;align-items:flex-start;
+  background:var(--bg2);
+  border:1px solid var(--border);
+  border-radius:6px;
+  padding:18px 22px;
+}
+.i-num{
+  font-family:'Cinzel',serif;
+  font-size:42px;
+  font-weight:900;
+  color:var(--gold3);
+  line-height:1;
+  flex-shrink:0;
+  width:38px;
+}
+.i-body h3{
+  font-family:'Cinzel',serif;
+  font-size:13px;
+  font-weight:700;
+  letter-spacing:1px;
+  color:var(--gold2);
+  margin-bottom:6px;
+  text-transform:uppercase;
+}
+.i-body p{font-size:13px;color:var(--muted);line-height:1.7;}
+code{
+  background:rgba(201,168,76,.1);
+  border:1px solid rgba(201,168,76,.2);
+  border-radius:3px;
+  padding:1px 6px;
+  font-family:'Space Mono',monospace;
+  font-size:11px;
+  color:var(--gold2);
+}
+
+/* ── WARNING ── */
+.warning{
+  background:rgba(224,82,82,.06);
+  border:1px solid rgba(224,82,82,.2);
+  border-radius:6px;
+  padding:22px 24px;
+  font-size:13px;
+  line-height:1.8;
+  color:var(--muted);
+  margin-top:16px;
+}
+.warning strong{color:#E05252;}
+
+@media(max-width:640px){
+  header{grid-template-columns:1fr;padding:40px 24px 30px;}
+  main{padding:40px 20px;}
+  .setup-container,.kz-grid,.concept-grid{grid-template-columns:1fr;}
+  .legend-row{grid-template-columns:14px 1fr;}
+  .legend-name{display:none;}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-left">
+    <div class="eyebrow">Pine Script v5 · TradingView · Pro Method</div>
+    <h1>Smart Money<br>Concepts
+      <span>XAUUSD · Gold · H1</span>
+    </h1>
+  </div>
+  <div class="header-right">
+    <span class="pill gold">Order Blocks</span>
+    <span class="pill aqua">Fair Value Gaps</span>
+    <span class="pill gold">Liquidity Sweeps</span>
+    <span class="pill green">Kill Zones</span>
+    <span class="pill gold">Market Structure</span>
+  </div>
+</header>
+
+<main>
+
+  <!-- What SMC Plots -->
+  <section>
+    <h2>What This Script Draws</h2>
+    <div class="concept-grid">
+
+      <div class="concept-card">
+        <div class="accent-bar" style="background:linear-gradient(90deg,#3DBA78,transparent)"></div>
+        <span class="cc-icon">🟩</span>
+        <div class="cc-name" style="color:#3DBA78;">Bullish Order Block</div>
+        <div class="cc-desc">The last bearish candle before a strong bullish impulse. Institutions placed buy orders here. Price tends to return and react.</div>
+      </div>
+
+      <div class="concept-card">
+        <div class="accent-bar" style="background:linear-gradient(90deg,#E05252,transparent)"></div>
+        <span class="cc-icon">🟥</span>
+        <div class="cc-name" style="color:#E05252;">Bearish Order Block</div>
+        <div class="cc-desc">The last bullish candle before a strong bearish impulse. Smart money placed sell orders here — a high-probability short zone.</div>
+      </div>
+
+      <div class="concept-card">
+        <div class="accent-bar" style="background:linear-gradient(90deg,#4ECDC4,transparent)"></div>
+        <span class="cc-icon">🔷</span>
+        <div class="cc-name" style="color:#4ECDC4;">Bullish FVG</div>
+        <div class="cc-desc">A gap between candles where no trading occurred (candle 1 high &lt; candle 3 low). Price is drawn back to fill the imbalance before continuing up.</div>
+      </div>
+
+      <div class="concept-card">
+        <div class="accent-bar" style="background:linear-gradient(90deg,#F0A830,transparent)"></div>
+        <span class="cc-icon">🔶</span>
+        <div class="cc-name" style="color:#F0A830;">Bearish FVG</div>
+        <div class="cc-desc">Downside imbalance gap. Price fills it from below before resuming the sell-off. Used as a short entry zone on pullbacks.</div>
+      </div>
+
+      <div class="concept-card">
+        <div class="accent-bar" style="background:linear-gradient(90deg,#F5D76E,transparent)"></div>
+        <span class="cc-icon">💧</span>
+        <div class="cc-name" style="color:#F5D76E;">Liquidity Sweep</div>
+        <div class="cc-desc">Price spikes above a recent high or below a recent low to grab stop losses, then reverses. This is the setup trigger — the most important signal.</div>
+      </div>
+
+      <div class="concept-card">
+        <div class="accent-bar" style="background:linear-gradient(90deg,#9B7FD4,transparent)"></div>
+        <span class="cc-icon">🕗</span>
+        <div class="cc-name" style="color:#9B7FD4;">Kill Zones</div>
+        <div class="cc-desc">London (08–11 UTC) and New York (13–16 UTC) open windows. SMC signals are only valid inside these zones when Gold is institutionally active.</div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Trade Setup -->
+  <section>
+    <h2>The Pro Trade Setup</h2>
+    <div class="setup-container">
+
+      <div class="setup-box">
+        <div class="setup-header buy"><span class="dot buy"></span>BUY Setup</div>
+        <ul class="setup-steps">
+          <li><span class="step-num">1</span>H4/D1 shows bullish structure (HH+HL)</li>
+          <li><span class="step-num">2</span>London or NY kill zone is active</li>
+          <li><span class="step-num">3</span>Price sweeps below a recent swing low (liquidity grab)</li>
+          <li><span class="step-num">4</span>Candle closes back above the swept level</li>
+          <li><span class="step-num">5</span>Entry at Bull OB or Bullish FVG below</li>
+          <li><span class="step-num">6</span>SL below the sweep wick · TP = next HTF high</li>
+        </ul>
+      </div>
+
+      <div class="setup-box">
+        <div class="setup-header sell"><span class="dot sell"></span>SELL Setup</div>
+        <ul class="setup-steps">
+          <li><span class="step-num">1</span>H4/D1 shows bearish structure (LH+LL)</li>
+          <li><span class="step-num">2</span>London or NY kill zone is active</li>
+          <li><span class="step-num">3</span>Price sweeps above a recent swing high (stop hunt)</li>
+          <li><span class="step-num">4</span>Candle closes back below the swept level</li>
+          <li><span class="step-num">5</span>Entry at Bear OB or Bearish FVG above</li>
+          <li><span class="step-num">6</span>SL above the sweep wick · TP = next HTF low</li>
+        </ul>
+      </div>
+
+    </div>
+    <div class="warning">
+      <strong>⚠ Risk Management:</strong> Never risk more than 1–2% of your account per trade. Gold (XAUUSD) moves fast — always set your stop loss before entering. The script highlights setups; your discipline and confirmation on the chart are what make them profitable.
+    </div>
+  </section>
+
+  <!-- Chart Legend -->
+  <section>
+    <h2>Chart Legend</h2>
+    <div class="legend-grid">
+      <div class="legend-row">
+        <div class="legend-swatch" style="background:rgba(61,186,120,.4);border:1px solid #3DBA78;"></div>
+        <div class="legend-name">BULL OB BOX</div>
+        <div class="legend-desc">Green shaded box — institutional buy zone. Look for entry when price returns here.</div>
+      </div>
+      <div class="legend-row">
+        <div class="legend-swatch" style="background:rgba(224,82,82,.4);border:1px solid #E05252;"></div>
+        <div class="legend-name">BEAR OB BOX</div>
+        <div class="legend-desc">Red shaded box — institutional sell zone. Look for short entry when price returns here.</div>
+      </div>
+      <div class="legend-row">
+        <div class="legend-swatch" style="background:rgba(78,205,196,.3);border:1px solid #4ECDC4;"></div>
+        <div class="legend-name">BULL FVG BOX</div>
+        <div class="legend-desc">Cyan/teal box — upside imbalance. Bullish continuation expected after fill.</div>
+      </div>
+      <div class="legend-row">
+        <div class="legend-swatch" style="background:rgba(240,168,48,.3);border:1px solid #F0A830;"></div>
+        <div class="legend-name">BEAR FVG BOX</div>
+        <div class="legend-desc">Orange box — downside imbalance. Bearish continuation expected after fill.</div>
+      </div>
+      <div class="legend-row">
+        <div class="legend-swatch" style="background:#F5D76E;"></div>
+        <div class="legend-name">LIQ LINES</div>
+        <div class="legend-desc">Yellow dotted lines — where liquidity sits (stop losses cluster). Sweeps trigger the setup.</div>
+      </div>
+      <div class="legend-row">
+        <div class="legend-swatch" style="background:rgba(155,127,212,.35);border:1px solid #9B7FD4;"></div>
+        <div class="legend-name">KILL ZONES</div>
+        <div class="legend-desc">Purple/blue background shading — London and NY session windows. Only trade signals inside these.</div>
+      </div>
+      <div class="legend-row">
+        <div class="legend-swatch" style="background:#3DBA78;border-radius:50%;"></div>
+        <div class="legend-name">SMC BUY LABEL</div>
+        <div class="legend-desc">Green label below candle — all SMC buy conditions met. High-probability long setup.</div>
+      </div>
+      <div class="legend-row">
+        <div class="legend-swatch" style="background:#E05252;border-radius:50%;"></div>
+        <div class="legend-name">SMC SELL LABEL</div>
+        <div class="legend-desc">Red label above candle — all SMC sell conditions met. High-probability short setup.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Kill Zones -->
+  <section>
+    <h2>Kill Zones Explained</h2>
+    <div class="kz-grid">
+      <div class="kz-card london">
+        <div class="kz-time">08:00 – 11:00</div>
+        <div class="kz-label">London Kill Zone · UTC</div>
+        <div class="kz-desc">London open is where Gold makes its first major move of the day. Institutions place orders as European markets open, creating sharp directional moves. Most reliable for trend continuation setups.</div>
+      </div>
+      <div class="kz-card ny">
+        <div class="kz-time">13:00 – 16:00</div>
+        <div class="kz-label">New York Kill Zone · UTC</div>
+        <div class="kz-desc">NY open overlaps with London, bringing maximum liquidity. Gold often reverses or accelerates here. The most volatile window — ideal for liquidity sweep setups and reversals off order blocks.</div>
+      </div>
+    </div>
+    <div class="warning" style="margin-top:16px;border-color:rgba(201,168,76,.2);background:rgba(201,168,76,.04);">
+      <strong style="color:var(--gold);">🕐 Nigeria Time (WAT = UTC+1):</strong> London Kill Zone = 09:00–12:00 WAT · New York Kill Zone = 14:00–17:00 WAT. Set your TradingView timezone to UTC for the script to highlight correctly.
+    </div>
+  </section>
+
+  <!-- Installation -->
+  <section>
+    <h2>How To Install</h2>
+    <div class="install-steps">
+      <div class="install-step">
+        <div class="i-num">1</div>
+        <div class="i-body">
+          <h3>Open XAUUSD H1 Chart</h3>
+          <p>Go to TradingView, search <code>XAUUSD</code>, set the timeframe to <code>1H</code>. This is your primary trading chart.</p>
+        </div>
+      </div>
+      <div class="install-step">
+        <div class="i-num">2</div>
+        <div class="i-body">
+          <h3>Open Pine Editor</h3>
+          <p>Click <code>Pine Editor</code> at the bottom of the TradingView interface. Delete any existing code in the editor.</p>
+        </div>
+      </div>
+      <div class="install-step">
+        <div class="i-num">3</div>
+        <div class="i-body">
+          <h3>Paste the Script</h3>
+          <p>Open the <code>XAUUSD_SMC_Strategy.pine</code> file, copy all the code, paste it into the Pine Editor, then click <code>Add to chart</code>.</p>
+        </div>
+      </div>
+      <div class="install-step">
+        <div class="i-num">4</div>
+        <div class="i-body">
+          <h3>Set Timezone to UTC</h3>
+          <p>In TradingView chart settings → <code>Timezone</code> → select <code>UTC</code>. This ensures Kill Zone shading is accurate for Gold session hours.</p>
+        </div>
+      </div>
+      <div class="install-step">
+        <div class="i-num">5</div>
+        <div class="i-body">
+          <h3>Check Higher Timeframe First</h3>
+          <p>Before taking any H1 signal, switch to H4 or D1 and confirm the overall structure direction. Only trade H1 signals that align with the higher timeframe bias.</p>
+        </div>
+      </div>
+      <div class="install-step">
+        <div class="i-num">6</div>
+        <div class="i-body">
+          <h3>Set Alerts (Optional)</h3>
+          <p>Right-click chart → <code>Add Alert</code> → choose <code>SMC BUY — XAUUSD</code> or <code>SMC SELL — XAUUSD</code>. You'll get notified instantly when a setup fires, even when you're away from the screen.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+</body>
+</html>
